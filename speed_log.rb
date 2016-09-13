@@ -103,7 +103,7 @@ end
 
 
 if __FILE__==$0
-  require './firewall_info'
+  require_relative './firewall_info.rb'
 
   def to_bps(val)
     n,x = val.split(' ')

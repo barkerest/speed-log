@@ -23,6 +23,8 @@ class SpeedLog
     end
 
     def friendly(size)
+      return '' unless size
+
       if size > 1<<30
         '%0.2f Gb' % (size.to_f / (1<<30))
       elsif size > 1<<20

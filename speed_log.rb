@@ -122,15 +122,15 @@ if __FILE__==$0
   end
 
   def fw_stats(fw_addr)
+    seconds = 5
     fw_start = FirewallInfo.new fw_addr
-    sleep 5
+    sleep seconds
     fw_end = FirewallInfo.new fw_addr
-    fw_tdiff = fw_end.uptime - fw_start.uptime
     fw_ddiff = (fw_end.download_bytes - fw_start.download_bytes) * 8
     fw_udiff = (fw_end.upload_bytes - fw_start.upload_bytes) * 8
 
-    fw_down = (fw_ddiff.to_f / fw_tdiff).to_i
-    fw_up = (fw_udiff.to_f / fw_tdiff).to_i
+    fw_down = (fw_ddiff.to_f / seconds).to_i
+    fw_up = (fw_udiff.to_f / seconds).to_i
 
     [ fw_down, fw_up ]
   end

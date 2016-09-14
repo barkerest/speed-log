@@ -38,7 +38,7 @@ class SpeedLog
 
     def to_s(csv = true)
       if csv
-        "#{year},#{month},#{day},#{hour},#{minute},#{latency},#{download},#{upload},#{fw_down},#{fw_up}"
+        "#{year},#{month},#{day},#{hour},#{minute},#{latency},#{download},#{upload},#{fw_down},#{fw_up},,#{friendly download},#{friendly upload}"
       else
         <<-EOS
 Date: #{year.to_s.rjust(4,'0')}-#{month.to_s.rjust(2,'0')}-#{day.to_s.rjust(2,'0')}
@@ -53,7 +53,7 @@ Other Upload: #{friendly fw_up}/s
     end
 
     def self.header
-      'Year,Month,Day,Hour,Minute,Latency(ms),Test-Down,Test-Up,Other-Down,Other-Up'
+      'Year,Month,Day,Hour,Minute,Latency(ms),Test-Down,Test-Up,Other-Down,Other-Up,,Download,Upload'
     end
 
     def self.parse(line)

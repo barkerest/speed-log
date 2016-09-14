@@ -3,6 +3,8 @@
 class SpeedLog
 
   class Record
+    include Comparable
+
     attr_accessor :month, :day, :year, :hour, :minute, :latency, :download, :upload, :fw_down, :fw_up
 
     def initialize(time, latency, download, upload, fw_down, fw_up)
@@ -61,6 +63,16 @@ Other Upload: #{friendly fw_up}/s
       SpeedLog::Record.new(Time.new(y, m, d, h, n), l, td, tu, fd, fu)
     end
 
+    def <=>(other)
+      return -1 unless other.is_a?(SpeedLog::Record)
+      return other.year <=> year unless other.year == year
+      return other.month <=> month unless other.month == month
+      return other.day <=> day unless other.day == day
+      return other.hour <=> hour unless other.hour == hour
+      return other.minute <=> minute unless other.minute == minute
+      other.object_id <=> object_id
+    end
+
   end
 
   attr_reader :path
@@ -87,6 +99,7 @@ Other Upload: #{friendly fw_up}/s
   end
 
   def save
+    records.sort!
     File.open path, 'wt' do |f|
       f.write SpeedLog::Record.header
       f.write "\n"
